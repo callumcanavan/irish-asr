@@ -1,3 +1,3 @@
 # Irish ASR
 
-Automatic Speech Recognition for the Irish language
+Automatic Speech Recognition for the Irish language.
