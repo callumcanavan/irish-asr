@@ -158,7 +158,8 @@ model.generate = partial(model.generate, language="sinhalese", task="transcribe"
 from transformers import Seq2SeqTrainingArguments
 
 import sys
-max_steps = sys.argv[1] if len(sys.argv) > 1 else 4000
+max_steps = int(sys.argv[1]) if len(sys.argv) > 1 else 4000
+print(f"Max steps: {max_steps}")
 
 training_args = Seq2SeqTrainingArguments(
     output_dir=f"./whisper-small-ga-{max_steps}",  # name on the HF Hub
@@ -202,7 +203,7 @@ print(trainer.train())
 kwargs = {
     "dataset_tags": "mozilla-foundation/common_voice_13_0",
     "dataset": "Common Voice 13",  # a 'pretty' name for the training dataset
-    "language": "ga-IE",  # the language of the training dataset
+    "language": "ga",  # the language of the training dataset
     "model_name": f"Whisper Small Ga {max_steps} - Callum Canavan",  # a 'pretty' name for your model
     "finetuned_from": "openai/whisper-small",
     "tasks": "automatic-speech-recognition",
