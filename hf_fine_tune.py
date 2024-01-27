@@ -161,11 +161,11 @@ import sys
 max_steps = sys.argv[1] if len(sys.argv) > 1 else 4000
 
 training_args = Seq2SeqTrainingArguments(
-    output_dir="./whisper-small-ga",  # name on the HF Hub
+    output_dir=f"./whisper-small-ga-{max_steps}",  # name on the HF Hub
     per_device_train_batch_size=16,
     gradient_accumulation_steps=1,  # increase by 2x for every 2x decrease in batch size
     learning_rate=1e-5,
-    lr_scheduler_type="constant_with_warmup",
+    lr_scheduler_type="linear" if max_steps >= 2000 else "constant_with_warmup",
     warmup_steps=50,
     max_steps=max_steps,  # increase to 4000 if you have your own GPU or a Colab paid plan
     gradient_checkpointing=True,
@@ -203,7 +203,7 @@ kwargs = {
     "dataset_tags": "mozilla-foundation/common_voice_13_0",
     "dataset": "Common Voice 13",  # a 'pretty' name for the training dataset
     "language": "ga-IE",  # the language of the training dataset
-    "model_name": "Whisper Small Ga - Callum Canavan",  # a 'pretty' name for your model
+    "model_name": f"Whisper Small Ga {max_steps} - Callum Canavan",  # a 'pretty' name for your model
     "finetuned_from": "openai/whisper-small",
     "tasks": "automatic-speech-recognition",
 }
