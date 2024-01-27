@@ -6,3 +6,7 @@ evaluate
 ipython
 ipywidgets
 soundfile
+librosa
+jiwer
+accelerate
+tensorboardX
